@@ -16,7 +16,7 @@ def names_gen(file):
     return names_list
 
 
-names_list = names_gen('list_names.txt')
+names_list = names_gen('list_partics.txt')
 iterator = 0
 f_write = open('./output/auto_participants.fodg', 'w', encoding='utf-8')
 with open('./input/participants.fodg', 'r', encoding='utf-8') as f_read:
