@@ -1,3 +1,6 @@
+import csv
+
+
 def replace_names(fio, line):
     new_line = line
     for y, x in enumerate(['participsurname', 'participname', 'particippatronymic', 'participcity']):
@@ -6,17 +9,13 @@ def replace_names(fio, line):
 
 
 def names_gen(file):
-    names_list = []
-    with open(file, 'r', encoding='utf-8') as f:
-        for line in f:
-            fio_list = line[:-1].split(' ')
-            if len(fio_list) > 4:  # Если город в два слова
-                fio_list[3] += ' ' + fio_list.pop(4)
-            names_list.append(fio_list)
-    return names_list
+    with open(file, 'r') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';')
+        name_list = list(reader)[1:]
+    return name_list
 
 
-names_list = names_gen('list_partics.txt')
+names_list = names_gen('list_partics.csv')
 iterator = 0
 f_write = open('./output/auto_participants.fodg', 'w', encoding='utf-8')
 with open('./input/participants.fodg', 'r', encoding='utf-8') as f_read:

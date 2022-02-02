@@ -1,3 +1,6 @@
+import csv
+
+
 def replace_names(fio, line):
     new_line = line
     for y, x in enumerate(['orgsurname', 'orgname', 'orgpatronymic']):
@@ -6,15 +9,13 @@ def replace_names(fio, line):
 
 
 def names_gen(file):
-    names_list = []
-    with open(file, 'r', encoding='utf-8') as f:
-        for line in f:
-            fio_list = line[:-1].split(' ')
-            names_list.append(fio_list)
-    return names_list
+    with open(file, 'r') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';')
+        name_list = list(reader)[1:]
+    return name_list
 
 
-names_list = names_gen('list_orgs.txt')
+names_list = names_gen('list_orgs.csv')
 iterator = 0
 f_write = open('./output/auto_orgs.fodg', 'w', encoding='utf-8')
 with open('./input/orgs.fodg', 'r', encoding='utf-8') as f_read:
